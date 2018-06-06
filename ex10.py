@@ -1,4 +1,4 @@
-tabbycat="\tI'm tabbed in."
+tabycat="\tI'm tabbed in."
 persiancat="I'm split\non a line."
 backslashcat="I'm \\ a \\ cat."
 
@@ -9,7 +9,7 @@ I'll do a list:
     \t* Catnip\n\t* Grass
     """
 
-    print(tabbycat)
+    print(tabycat)
     print(persiancat)
     print(backslashcat)
     print(fatcat)
