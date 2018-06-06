@@ -1,15 +1,15 @@
-tabycat="\tI'm tabbed in."
-persiancat="I'm split\non a line."
-backslashcat="I'm \\ a \\ cat."
+tabby_cat="\tI'm tabbed in."
+persian_cat="I'm split\non a line."
+backslash_cat="I'm \\ a \\ cat."
 
-fatcat="""
+fat_cat="""
 I'll do a list:
     \t* Cat food
     \t* Fishies
     \t* Catnip\n\t* Grass
     """
 
-    print(tabycat)
-    print(persiancat)
-    print(backslashcat)
-    print(fatcat)
+    print(tabby_cat)
+    print(persian_cat)
+    print(backslash_cat)
+    print(fat_cat)
