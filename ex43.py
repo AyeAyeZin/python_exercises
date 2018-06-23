@@ -1,3 +1,32 @@
+from sys import exit
+from random import randint
+from textwrap import dedent
+class Scene(object):
+    def enter(self):
+        print("This scebe is not yet configured.")
+        print("Suck it and implement enter().")
+        exit(1)
+class Engine(object):
+    def __init__(self,scene_map):
+        self.scene_map=scene_map
+    def play(self):
+        current_scene=self.scene_map.opening_scene()
+        list_scene=self.scene_map.next_scene('finished')
+        while current_scene !=last_scene:
+            next_scene_name=current_scene.enter()
+            current_scene=self.scene_map.next_scene(next_scene_name)
+        current_scene.enter()
+class Death(Scene):
+    quips =[
+            "You died. You kinda at this.",
+            "Your Mom would be proud...if she were smarter.",
+            "Such a luuser.",
+            "I have a small puppy that's better at this.",
+            "You're worse than your Dad's jokes."
+            ]
+    def enter(self):
+        print(Death.quips[randint(0, len(self.quips)-1)])
+        exit(1)
 class CentralCorridor(Scene):
     def enter(self):
         print(dedent("""
@@ -22,29 +51,104 @@ class CentralCorridor(Scene):
                 bought him, which makes him fly into an insane you are
                 dead. Then he eats you.
                 """))
-            retuurn 'death'
-    elif action=='dodge!':
+            return 'death'
+        elif action=='dodge!':
+            print(dedent("""
+                Like a world class boxer you dodge, weave, slip and
+                slide right as the Gothon's blaster cranks a laser
+                past your head. In the middle of your artful dodge
+                your fool slips and you bang your head on  the metal
+                wall and pass out. You wake up shortly after only to
+                die as the Gothon stomps on head and eats you.
+                """))
+            return 'death'
+        elif action=="tell a joke":
+            print(dedent("""
+                Lucky for you they made you learn Gothon insults in
+                the academy. Yuu tell the one Gothon joke you know:
+                Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhrfr,
+                fur fvgf nebhaq gur ubhfr. The Gothon stops. tries
+                not to laugh, then busts out laughting and can't move.
+                While he's laughting you run up and shoot him square in
+                the head putting him down, then jump through the
+                Weapon Armory door.
+                """))
+            return 'laser_weapon_armory'
+        else:
+           
+           print("DOES NOT COMPUTE!")
+           return 'central_corridor'
+class LaseWeaponArmory(Scene):
+    def enter(self):
         print(dedent("""
-            Like a world class boxer you dodge, weave, slip and
-            slide right as the Gothon's blaster cranks a laser
-            past your head. In the middle of your artful dodge
-            your fool slips and you bang your head on  the metal
-            wall and pass out. You wake up shortly after only to
-            die as the Gothon stomps on head and eats you.
+            You do a dive roll into the weapon Armory, crouch and scan
+            the room for more Gothons that migh be hiding. It's dead
+            quiet too quiet.You stand up and run to the far side of 
+            the room and find thfe neutron bomb in its container.
+            There's a keypad lock on the box and you need the code to
+            get the bomb out. If you get the code wrong 10 times then
+            the lock closes forever and you can't get the bomb. The
+            code is 3 digits.
             """))
-        return 'death'
-    def action=="tekk a joke":
+        code=f"{randint(1,9)}{randint(1,9)}"
+        guess=input("[keypad]>")
+        guesses=0
+        while guess !=code and guesses <10:
+            print("BZZZZZEDDD!")
+            guesses+=1
+            guess=input("[keypad]>")
+            if guess==code:
+                print(dedent("""
+                    The container click open and the seal breaks, letting
+                    gas out. You grab the neutron bomb and run as fast as
+                    you can to the bridge where you must place it in the
+                    right spot.
+                    """))
+                return 'the_bridge'
+            else:
+                print(dedent("""
+                    The lock buzzes one time and then you hear a
+                    sicking melting sound as the mechanism is fused
+                    together. You decide to dit there, and finally the
+                    Gothons blow up the ship from their ship and your fie.
+                    """))
+                return 'death'
+class TheBridge(Scene):
+    def enter(self):
         print(dedent("""
-            Lucky for you they made you learn Gothon insults in
-            the academy. Yuu tell the one Gothon joke you know:
-            Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhrfr,
-            fur fvgf nebhaq gur ubhfr. The Gothon stops. tries
-            not to laugh, then busts out laughting and can't move.
-            While he's laughting you run up and shoot him square in
-            the head putting him down, then jump through the
-            Weapon Armory door.
+            You burst onto the Bridge with the netron destruck bomb
+            under your arm and surprise 5 Gothons who are trying to
+            take control of the ship.Each of them has an even uglier
+            clown costume than the last. They haven't pulled their
+            weapon out yet, as they see the active bomb under your
+            arm and don't want to set it off
             """))
-        return 'laser_weapon_armory'
-    else:
-        print("DOES NOT COMPUTE!")
-        print'central_corridor'
+        action=input("> ")
+        if action=="throw the bomb":
+            print(dedent("""
+                In a panic you throw the bomb at the group of Gothons
+                and make a leap for the door. Right as you drop it a
+                Gothon shoots you right in the back killing you. As
+                you die you see another Gothon frantically try to
+                disarm the bomb. You die knowing they will probably
+                blow up when it goes off.
+                """))
+            return 'death'
+        elif action=="slowly place the bomb":
+            print(dedent("""
+                You point your blaster at the bomb under your arm and
+                the Gothons put their hands up and start to sweat.
+                You inch backward to the door, open it and then
+                carefully place the bomb on the floor, pointing your
+                blaster at it. You then jump back through the door,
+                punch the close button and blast the lock so the
+                Gothons can't get out. Now that the bomb is placed
+                you run to the escape pod to get off this tin can.
+                """))
+            return 'escape_pod'
+        else:
+            print("DOES NOT COMPLETE!")
+            return "the_bridge"
+
+
+
